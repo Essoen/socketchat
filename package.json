@@ -1,6 +1,6 @@
 {
   "name": "socketchat",
-  "main": "app.js",
+  "main": "app/app.js",
   "dependencies": {
     "express": "^4.13.2",
     "http": "0.0.0",
