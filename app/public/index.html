@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>SocketChat</title>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h4>Welcome to SocketChat</h4>
+        <label for="username">Username: </label><input id="username" type="text">
+        <div id="chat">
+            <div id="messages"></div>
+            <input id="new-message" type="text"> <button id="send">Send</button>
+        </div>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
