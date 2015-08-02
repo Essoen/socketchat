@@ -1,0 +1,12 @@
+#messages{
+    height: 250px;
+    overflow-y: scroll;
+}
+
+#new-message{
+    width: 80%;
+}
+
+#send {
+    float:right;
+}

@@ -9,12 +9,18 @@
     <body>
         <div class="container">
             <h3>Welcome to SocketChat</h3>
-            <label for="username">Username: </label><input id="username" type="text">
-            <button id="login">Log in</button>
+            <div class="row">
+                <label for="username">Username: </label><input id="username" type="text">
+                <button id="login">Log in</button>
+                <button id="logout">Log out</button>
+            </div>
             <div class="row">
                 <div class="eight columns">
                     <div id="messages"></div>
-                    <input id="new-message" type="text"> <button id="send">Send</button>
+                    <div id="input-message">
+                        <input id="new-message" type="text">
+                        <button id="send">Send</button>
+                    </div>
                 </div>
                 <div class="four columns">
                     <h5>Active users</h5>

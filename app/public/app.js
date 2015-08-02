@@ -6,18 +6,30 @@
     var socket, thisUsername;
     $('#login').click(function(e){
         socket = io();
+        socket.connect();
         thisUsername = $('#username').val();
         socket.emit('login', {
             username: thisUsername
         });
-        printCtrl({msg: 'You are now logged in.'});
         initSocket();
+        View.login();
+        View.printCtrlMsg({msg: 'You are now logged in.'});
+    });
+
+    $('#logout').click(function(e){
+        socket.emit('logout', {
+           username: thisUsername
+        });
+        View.printCtrlMsg({msg: 'You are now logged out.'});
+        View.logout();
+        socket.disconnect();
+        socket = null;
     });
 
     $('#send').click(function(e){
         if(!socket) return;
 
-        printMsg('Me', $('#new-message').val());
+        View.printMsg('Me', $('#new-message').val());
         socket.emit('msg', {
             user: $('#username').val(),
             msg: $('#new-message').val()
@@ -25,27 +37,26 @@
         $('#new-message').val(''); // Clear field
     });
 
-    var printCtrl = function(ctrlObj){
-      $('#messages').append(ctrlObj.msg + '<br>');
-    };
+    $('#new-message').keyup(function(e){
+        if(event.keyCode == 13){
+            $('#send').click();
+        }
+    });
 
-    var printMsg = function(user, msg) {
-        $('#messages').append('<bold>' + user + ':</bold> ' + msg + '<br>')
-    };
 
     var initSocket = function () {
         socket.on('msg', function(msgObj){
-            printMsg(msgObj.user, msgObj.msg);
+            View.printMsg(msgObj.user, msgObj.msg);
         });
 
         socket.on('ctrl', function(ctrlObj){
-            printCtrl(ctrlObj);
+            View.printCtrlMsg(ctrlObj);
         });
 
         socket.on('users', function(usernamesInChat){
             $.each(usernamesInChat, function(index, value){
                 if(value === thisUsername){
-                    value += ' (you)'
+                    value += ' (you)';
                     usernamesInChat[index] = value;
                 }
             });
@@ -53,5 +64,42 @@
 
         });
     };
+
+    var View =  function(){
+        var init = function(){
+            logout();
+        };
+
+        var login = function(){
+            $('#login').hide();
+            $('#logout').show();
+            $('#username').prop('disabled', true);
+        };
+
+        var logout = function(){
+            $('#login').show();
+            $('#logout').hide();
+            $('#username').prop('disabled', false);
+            $('#users').html('');
+        };
+
+        var printCtrlMsg = function(ctrlObj){
+            $('#messages').append(ctrlObj.msg + '<br>');
+        };
+
+        var printMsg = function(user, msg) {
+            $('#messages').append('<bold>' + user + ':</bold> ' + msg + '<br>')
+        };
+
+        init();
+        return {
+            login: login,
+            logout: logout,
+            printMsg: printMsg,
+            printCtrlMsg: printCtrlMsg
+        };
+    }();
+
+
 }());
 
