@@ -8,7 +8,7 @@ WORKDIR /app
 EXPOSE 3000
 
 # Copy application
-COPY app /app
+COPY . /app
 
 # Build image
 RUN npm install
