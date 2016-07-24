@@ -9,7 +9,7 @@ A simple chat application, written in Node with the help of [Socket.io](http://s
 Now run `npm start` and reach the app on `localhost:3000`.
 
 ### Run with Docker
-Run with `docker run -t essoen/socketchat npm start`.
+Run with `docker run essoen/socketchat npm start`.
 
 ## API
 Some documentation for the communcation between the client and the server:
