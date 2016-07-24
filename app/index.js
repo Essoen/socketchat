@@ -8,7 +8,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use(express.static('public')); // Serve webapp
+app.use(express.static('app/public')); // Serve webapp
+
 var usernames = [];
 io.on('connection', function(socket){
     socket.on('login', function(userObj){
